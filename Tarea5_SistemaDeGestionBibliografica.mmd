@@ -1,0 +1,49 @@
+classDiagram
+
+class BaseDeDatos{
+    - url: String
+    + anadirPulicacion(nombre: String): Publicaion
+}
+
+class Publicacion{
+    <<abstract>>
+    - nombre: String
+    - fecha: Date
+}
+
+class articuloDeConferencia{
+    - numPaginas: int 
+}
+
+class CapituloDeLibro{
+    - numCapitulo: int
+}
+
+class Libro{
+     - isbn: int[4]
+}
+
+class Proceeding{
+    - lugarConferencia: String
+}
+
+class Autor{
+    - nombre: String
+    - email: String
+    - entidad: String
+    + aniadirEntidad(entidad: String): void
+    + escribirArticulo(articulo: String): ArticuloDeConferencia
+    + consultar(consulta: String): List~Publicacion~
+}
+
+
+
+BaseDeDatos "1" *-- "0..*"Publicacion 
+Publicacion <|-- ArticuloDeConferencia
+Publicacion <|-- CapituloDeLibro
+Publicacion <|-- Libro
+Libro <|-- Proceeding
+Proceeding "1" *.. "1..*" ArticuloDeConferencia
+Libro *-- CapituloLibro
+ArticuloDeConferencia <-- Autor
+BaseDeDatos <-- Autor
